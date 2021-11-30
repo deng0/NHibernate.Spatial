@@ -115,8 +115,13 @@ namespace NHibernate.Spatial.Type
 
             public override object DeepCopyNotNull(object value)
             {
-                var arr = (byte[]) value;
-                return arr.Clone();
+                var geometry = value as Geometry;
+                if (geometry == null)
+                {
+                    return null;
+                }
+
+                return geometry.Copy();
             }
         }
     }
